@@ -1,0 +1,22 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - host: mockbin.org
+    name: mock_service
+    port: 80
+    protocol: http
+    routes:
+      - name: example_route
+        paths:
+          - /mock
+        strip_path: true
+  - host: jsonplaceholder.typicode.com
+    name: placeholder_service
+    port: 80
+    protocol: http
+    routes:
+      - name: placeholder_route
+        paths:
+          - /posts
+        strip_path: false

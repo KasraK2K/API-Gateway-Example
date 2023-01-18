@@ -1,0 +1,124 @@
+{
+  "$schema": "https://www.krakend.io/schema/v3.json",
+  "version": 3,
+  "name": "APIGatewayKrakenD",
+  "timeout": "10s",
+  "cache_ttl": "4000s",
+  "port": 9000,
+  "output_encoding": "no-op",
+  "allow_insecure_connections": true,
+  "extra_config": {
+    "router": {
+      "return_error_msg": true
+    }
+  },
+  "endpoints": [
+    {
+      "endpoint": "/placeholder/posts",
+      "method": "GET",
+      "extra_config": {
+        "security/cors": {
+          "allow_origins": [
+            "*"
+          ],
+          "allow_methods": [
+            "GET"
+          ],
+          "expose_headers": [
+            "Content-Length",
+            "Content-Type"
+          ],
+          "allow_headers": [
+            "Accept-Language"
+          ],
+          "max_age": "12h",
+          "allow_credentials": false,
+          "debug": false
+        }
+      },
+      "backend": [
+        {
+          "url_pattern": "/posts",
+          "encoding": "no-op",
+          "sd": "static",
+          "method": "GET",
+          "host": [
+            "https://jsonplaceholder.typicode.com"
+          ],
+          "is_collection": true,
+          "target": ""
+        }
+      ]
+    },
+    {
+      "endpoint": "/local/users",
+      "method": "GET",
+      "extra_config": {
+        "security/cors": {
+          "allow_origins": [
+            "*"
+          ],
+          "allow_methods": [
+            "GET"
+          ],
+          "expose_headers": [
+            "Content-Length",
+            "Content-Type"
+          ],
+          "allow_headers": [
+            "Accept-Language"
+          ],
+          "max_age": "12h",
+          "allow_credentials": false,
+          "debug": false
+        }
+      },
+      "backend": [
+        {
+          "url_pattern": "/users",
+          "encoding": "no-op",
+          "sd": "static",
+          "method": "GET",
+          "host": [
+            "http://192.168.1.34:3000"
+          ]
+        }
+      ]
+    },
+    {
+      "endpoint": "/local/users",
+      "method": "POST",
+      "extra_config": {
+        "security/cors": {
+          "allow_origins": [
+            "*"
+          ],
+          "allow_methods": [
+            "POST"
+          ],
+          "expose_headers": [
+            "Content-Length",
+            "Content-Type"
+          ],
+          "allow_headers": [
+            "Accept-Language"
+          ],
+          "max_age": "12h",
+          "allow_credentials": false,
+          "debug": false
+        }
+      },
+      "backend": [
+        {
+          "url_pattern": "/users",
+          "encoding": "no-op",
+          "sd": "static",
+          "method": "POST",
+          "host": [
+            "http://192.168.1.34:3000"
+          ]
+        }
+      ]
+    }
+  ]
+}
