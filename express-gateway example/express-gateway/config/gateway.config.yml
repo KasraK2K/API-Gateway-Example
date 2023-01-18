@@ -1,0 +1,38 @@
+http:
+  port: 8080
+admin:
+  port: 9876
+  host: localhost
+apiEndpoints:
+  one:
+    host: localhost
+    paths: "/one"
+  two:
+    host: localhost
+    paths: "/two"
+serviceEndpoints:
+  one:
+    url: "http://localhost:3000"
+  two:
+    url: "http://localhost:4000"
+policies:
+  - basic-auth
+  - cors
+  - expression
+  - key-auth
+  - log
+  - oauth2
+  - proxy
+  - rate-limit
+pipelines:
+  default:
+    apiEndpoints:
+      - one
+      - two
+    policies:
+      # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+      # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: one
+              changeOrigin: true
